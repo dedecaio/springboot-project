@@ -10,35 +10,46 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "tb_category")
-public class Category implements Serializable {
+@Table(name="tb_product")
+public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
     private Long id;
-
     @Getter
     @Setter
     private String name;
-
-    @ManyToMany
     @Getter
-    private Set<Product> products = new HashSet<>();
-    public Category(){}
+    @Setter
+    private String description;
+    @Getter
+    @Setter
+    private Double price;
+    @Getter
+    @Setter
+    private String imgUrl;
 
-    public Category(Long id, String name) {
-        this.id = id;
-        this.name = name;
+    @Getter
+    private Set<Category> categories = new HashSet<>();
+
+    public Product() {
     }
 
+    public Product(Long id, String name, String description, Double price, String imgUrl) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imgUrl = imgUrl;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return Objects.equals(id, category.id);
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
     }
 
     @Override
