@@ -1,7 +1,10 @@
 package com.caioprogramador.springbootproject.services.impl;
 
+import com.caioprogramador.springbootproject.entities.Category;
 import com.caioprogramador.springbootproject.entities.Order;
+import com.caioprogramador.springbootproject.repositories.CategoryRepository;
 import com.caioprogramador.springbootproject.repositories.OrderRepository;
+import com.caioprogramador.springbootproject.services.CategoryService;
 import com.caioprogramador.springbootproject.services.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,21 +13,27 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class OrderServiceImpl implements OrderService {
-    private OrderRepository orderRepository;
+public class CategoryServiceImpl implements CategoryService {
+
+    private CategoryRepository categoryRepository;
     @Override
-    public List<Order> findAll() {
-        return orderRepository.findAll();
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
     }
 
     @Override
-    public Order findById(Long id) {
-        return orderRepository.findById(id)
+    public Category findById(Long id) {
+        return categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Order not found with id: "+ id));
     }
 
     @Override
-    public Order insert(Order order) {
+    public Category insert(Category user) {
+        return null;
+    }
+
+    @Override
+    public Category update(Category user, Long id) {
         return null;
     }
 
@@ -32,11 +41,4 @@ public class OrderServiceImpl implements OrderService {
     public Long deleteById(Long id) {
         return null;
     }
-
-
-    @Override
-    public Order update(Order order, Long id) {
-        return null;
-    }
-
 }

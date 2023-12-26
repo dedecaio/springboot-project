@@ -3,7 +3,6 @@ package com.caioprogramador.springbootproject.entities;
 import com.caioprogramador.springbootproject.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

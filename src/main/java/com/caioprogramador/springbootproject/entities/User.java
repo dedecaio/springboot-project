@@ -2,7 +2,6 @@ package com.caioprogramador.springbootproject.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,12 +16,17 @@ import java.util.Objects;
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable {
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Setter
     private String name;
+    @Setter
     private String email;
+    @Setter
     private String phone;
+    @Setter
     private String password;
     @JsonIgnore
     @OneToMany(mappedBy = "client")
@@ -49,23 +53,4 @@ public class User implements Serializable {
         return Objects.hash(id);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
