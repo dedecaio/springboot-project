@@ -1,5 +1,6 @@
 package com.caioprogramador.springbootproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,8 +22,8 @@ public class Category implements Serializable {
     @Getter
     @Setter
     private String name;
-
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories")
     @Getter
     private Set<Product> products = new HashSet<>();
     public Category(){}
