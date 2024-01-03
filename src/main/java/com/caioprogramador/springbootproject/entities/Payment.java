@@ -1,5 +1,6 @@
 package com.caioprogramador.springbootproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Payment implements Serializable {
     private Instant moment;
     @OneToOne
     @MapsId
+    @JsonIgnore
     private Order order;
 
     @Override
