@@ -10,6 +10,6 @@ public interface UserService {
     User findById(Long id);
     User insert(User user);
     User update(User user, Long id);
-    Long deleteById(Long id);
+    void deleteById(Long id);
 
 }

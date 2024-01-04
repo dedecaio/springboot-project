@@ -31,11 +31,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user, Long id) {
-        return null;
+        User entity = userRepository.getReferenceById(id);
+        updateData(entity,user);
+        return userRepository.save(entity);
+    }
+
+    private void updateData(User entity, User user) {
+        entity.setName(user.getName());
+        entity.setEmail(user.getEmail());
+        entity.setPhone(user.getPhone());
     }
 
     @Override
-    public Long deleteById(Long id) {
-        return null;
+    public void deleteById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User with id "+id+" does not exist"));
+        userRepository.delete(user);
     }
 }
