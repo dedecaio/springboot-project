@@ -5,6 +5,7 @@ import com.caioprogramador.springbootproject.repositories.UserRepository;
 import com.caioprogramador.springbootproject.services.UserService;
 import com.caioprogramador.springbootproject.services.exceptions.DataBaseException;
 import com.caioprogramador.springbootproject.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -34,9 +35,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user, Long id) {
-        User entity = userRepository.getReferenceById(id);
-        updateData(entity,user);
-        return userRepository.save(entity);
+        try{
+            User entity = userRepository.getReferenceById(id);
+            updateData(entity,user);
+            return userRepository.save(entity);
+        }catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(User entity, User user) {
