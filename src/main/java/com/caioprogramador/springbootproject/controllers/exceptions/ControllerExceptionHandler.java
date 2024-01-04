@@ -1,5 +1,6 @@
 package com.caioprogramador.springbootproject.controllers.exceptions;
 
+import com.caioprogramador.springbootproject.services.exceptions.DataBaseException;
 import com.caioprogramador.springbootproject.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,15 @@ public class ControllerExceptionHandler {
                                                           HttpServletRequest request){
         String error = "Resource not found";
         HttpStatus status = HttpStatus.NOT_FOUND;
+        StandardError err = new StandardError(Instant.now(),status.value(),
+                error,e.getMessage(),request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+    @ExceptionHandler(DataBaseException.class)
+    public ResponseEntity<StandardError> database(DataBaseException e,
+                                                          HttpServletRequest request){
+        String error = "Database error";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError err = new StandardError(Instant.now(),status.value(),
                 error,e.getMessage(),request.getRequestURI());
         return ResponseEntity.status(status).body(err);

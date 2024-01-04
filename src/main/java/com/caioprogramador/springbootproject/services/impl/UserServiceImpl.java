@@ -3,8 +3,10 @@ package com.caioprogramador.springbootproject.services.impl;
 import com.caioprogramador.springbootproject.entities.User;
 import com.caioprogramador.springbootproject.repositories.UserRepository;
 import com.caioprogramador.springbootproject.services.UserService;
+import com.caioprogramador.springbootproject.services.exceptions.DataBaseException;
 import com.caioprogramador.springbootproject.services.exceptions.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,8 +47,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteById(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
-        userRepository.delete(user);
+
+        try{
+            User user = userRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException(id));
+            userRepository.delete(user);
+        }catch (DataIntegrityViolationException e){
+            throw new DataBaseException(e.getMessage());
+        }
+
     }
 }
