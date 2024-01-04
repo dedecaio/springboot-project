@@ -3,6 +3,7 @@ package com.caioprogramador.springbootproject.services.impl;
 import com.caioprogramador.springbootproject.entities.User;
 import com.caioprogramador.springbootproject.repositories.UserRepository;
 import com.caioprogramador.springbootproject.services.UserService;
+import com.caioprogramador.springbootproject.services.exceptions.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: "+ id));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     @Override
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User with id "+id+" does not exist"));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
         userRepository.delete(user);
     }
 }
